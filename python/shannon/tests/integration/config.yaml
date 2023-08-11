@@ -1,0 +1,59 @@
+# An unique identifier for the head node and workers of this cluster.
+cluster_name: aryn-minimal
+
+# The maximum number of worker nodes to launch in addition to the head
+# node.
+max_workers: 1
+
+docker:
+  image: "rayproject/ray-ml:16ea7c-py310"
+  container_name: "ray_container"
+
+provider:
+  type: aws
+  region: us-east-1
+  use_internal_ips: true
+  security_group:
+    GroupName: groupName
+
+auth:
+  ssh_user: ec2-user
+
+available_node_types:
+  # Configurations for the head node.
+  head:
+    node_config:
+      InstanceType: t2.large
+      ImageId: ami-08a52ddb321b32a8c
+      SubnetIds: [subnet-xxxx]
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeSize: 50
+    resources:  {}
+
+  # Configurations for the worker nodes.
+  worker:
+    # To experiment with autoscaling, set min_workers to 0.
+    # min_workers: 0
+    min_workers: 1
+    max_workers: 1
+    node_config:
+      InstanceType: t2.large
+      ImageId: ami-08a52ddb321b32a8c
+      SubnetIds: [subnet-xxxx]
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeSize: 50
+    resources:  {}
+
+initialization_commands:
+  - sudo yum update -y
+  - sudo yum -y install docker
+  - sudo usermod -a -G docker $USER
+  - sudo service docker start
+setup_commands:
+  - conda install python=3.10
+
+head_node_type: head

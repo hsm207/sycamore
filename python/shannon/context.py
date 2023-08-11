@@ -9,7 +9,7 @@ from shannon.execution import Execution, Rule
 class Context:
     def __init__(self):
         # TODO, we need to handle what exactly the conf we pass down to Ray
-        ray.init()
+        ray.init(ignore_reinit_error=False)
         self.execution = Execution()
         self._internal_lock = threading.Lock
 
