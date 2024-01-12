@@ -45,7 +45,7 @@ Sycamore’s default data ingestion and preparation code can optionally use Amaz
 
 `export SYCAMORE_TEXTRACT_PREFIX=s3://your-bucket-name-here`
 
-4. Configure your AWS credentials. You can enable AWS SSO login with these instructions, or you can use other methods to set up AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and if needed AWS_SESSION_TOKEN. 
+4. Configure your AWS credentials. You can enable AWS SSO login with [these instructions](https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html#sso-configure-profile-token-auto-sso), or you can use other methods to set up AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, and if needed AWS_SESSION_TOKEN. 
 
 If using AWS SSO: 
 
@@ -69,60 +69,33 @@ NOTE WE MIGHT NOT NEED 5 ANYMORE
 
 ## Demo: Ingest and Query Sort Benchmark dataset 
 
- 
-
-You can next run a sample workload that ingests data from the Sort Benchmark website into Sycamore and makes it available to query through the demo query UI. This dataset contains HTML webpages and journal articles in PDFs, including images and tables. After loading and preparing this data, you can experiment with how Sycamore can answer questions on this unstructured dataset. 
-
- 
+You can next run a sample workload that ingests data from the [Sort Benchmark website](http://www.sortbenchmark.org/) into Sycamore and makes it available to query through the demo query UI. This dataset contains HTML webpages and journal articles in PDFs, including images and tables. After loading and preparing this data, you can experiment with how Sycamore can answer questions on this unstructured dataset. 
 
 To answer these questions, you will need to process the data using Sycamore’s table extraction feature set. Amazon Textract support needs to be enabled, and you can do that by following these directions. [NEED LINK] 
 
- 
+1. Run the Sycamore HTTP Crawler container with an additional parameter to crawl the Sort Benchmark website: 
 
-Run the Sycamore HTTP Crawler container with an additional parameter to crawl the Sort Benchmark website: 
-
- 
-
-docker compose run sycamore_crawler_http_sort_all 
-
- 
+`docker compose run sycamore_crawler_http_sort_all`
 
 Note: If you just want to ingest a few PDFs instead of the whole dataset, run: 
 
- 
-
-docker compose run sycamore_crawler_http_sort_one 
-
- 
+`docker compose run sycamore_crawler_http_sort_one` 
 
 Sycamore will automatically start processing the new data. The processing job is complete and the data is loaded into the index once you see log messages similar to: 
 
- 
+`No changes at [datetime] sleeping`
 
-No changes at [datetime] sleeping 
-
- 
-
- 
-
-Go to the demo query UI at localhost:3000. You can interact with the demo UI while data is being added to the index, but the data won't all be available until the job is done.  
+3. Go to the demo query UI at localhost:3000. You can interact with the demo UI while data is being added to the index, but the data won't all be available until the job is done.  
  
 
 Once this is complete, some sample questions to ask are: 
 
-Who are the most recent winners of the Sort Benchmark? 
-
-What are the hardware costs for ELSAR? Return as a table. 
-
-What is CloudSort? 
+* Who are the most recent winners of the Sort Benchmark? 
+* What are the hardware costs for ELSAR? Return as a table. 
+* What is CloudSort? 
 
  
-
- 
-
-Demo: Ingest and Query Data From An Arbitrary Website 
-
- 
+## Demo: Ingest and Query Data From An Arbitrary Website 
 
 You crawl and ingest an arbitrary website with the Sycamore default data ingestion code. However, this code is not not optimized for any given dataset, so the answer quality may vary on new websites.  
 
