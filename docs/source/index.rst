@@ -5,9 +5,11 @@
 Welcome to Sycamore!
 --------------------
 
-Sycamore is an open-source conversational search and analytics platform for complex unstructured data, such as documents, presentations, transcripts, embedded tables, and internal knowledge repositories. It retrieves and synthesizes high-quality answers through bringing AI to data preparation, indexing, and retrieval. Sycamore makes it easy to prepare unstructured data for search and analytics, providing a toolkit for data cleaning, information extraction, enrichment, summarization, and generation of vector embeddings that encapsulate the semantics of data. Sycamore uses your choice of generative AI models to make these operations simple and effective, and it enables quick experimentation and iteration. Additionally, Sycamore uses OpenSearch for storage and queries of vector embeddings and associated data.  
+Sycamore is an open-source conversational search and analytics platform for complex unstructured data, such as documents, presentations, transcripts, embedded tables, and internal knowledge repositories. It retrieves and synthesizes high-quality answers through bringing AI to data preparation, indexing, and retrieval. Sycamore makes it easy to prepare unstructured data for search and analytics, providing a toolkit for data cleaning, information extraction, enrichment, summarization, and generation of vector embeddings that encapsulate the semantics of data. Sycamore uses your choice of generative AI models to make these operations simple and effective, and it enables quick experimentation and iteration. Additionally, Sycamore uses OpenSearch for storage and queries of vector embeddings and associated data.   
 
-ADD DEMO VIDEO!!!
+
+
+.. image:: images/SycamoreDiagram2.png
 
 **Key Features**
 
@@ -21,7 +23,7 @@ ADD DEMO VIDEO!!!
 
 * Plug-and-Play LLMs. Use different LLMs for entity extraction, vector embedding, RAG, and post-processing steps. Currently supporting OpenAI and Amazon Bedrock, and more to come! 
 
-
+ADD DEMO VIDEO!!!
 
 Getting Started
 --------------------
