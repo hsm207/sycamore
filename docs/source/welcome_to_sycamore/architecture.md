@@ -30,6 +30,6 @@ Sycamore uses LLMs to rewrite natural language queries and implement RAG. You ca
 
 * **Post Retrieval Processing:** Sycamore runs post-processing steps. For instance, it includes a customizable reranker to provide reranking heuristics after hybrid search returns initial results.
 
-##Architecture Diagram
+## Architecture Diagram
 
 ![Untitled](imgs/SycamoreDiagram_Detailed.png)
