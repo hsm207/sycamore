@@ -144,11 +144,9 @@ Look at the log messages for the Sycamore container: 
 
 1. Check to see if you are missing environment variables. If so, please set them using the instructions earlier in the guide. 
 
-2. If it is constantly OOMing, increase the memory for your Docker container 
+2. If it is constantly OOMing, increase the memory for your Docker container. To do this via Docker Desktop: Settings > Resources > scroll down > ... 
 
-Via Docker Desktop: Settings > Resources > scroll down > ... 
-
-The minimum successfully tested resources were 4GB RAM, 4GB Swap, 64GB disk space 
+* The minimum successfully tested resources were 4GB RAM, 4GB Swap, 64GB disk space 
 
 **Reset Sycamore entirely**
 
