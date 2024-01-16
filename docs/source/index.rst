@@ -13,15 +13,15 @@ Sycamore is an open-source conversational search and analytics platform for comp
 
 **Key Features**
 
-* Answer Hard Questions on Complex Data. Prepares and enriches complex unstructured data for search and analytics through advanced data segmentation, LLM-powered UDFs for data enrichment, performant data manipulation with Python, and vector embeddings using a variety of AI models. 
+* **Answer Hard Questions on Complex Data.** Prepares and enriches complex unstructured data for search and analytics through advanced data segmentation, LLM-powered UDFs for data enrichment, performant data manipulation with Python, and vector embeddings using a variety of AI models. 
 
-* Multiple Query Options. Flexible query operations over unstructured data including RAG, hybrid search, analytical functions, natural language/conversational search, and custom post-processing functions.  
+* **Multiple Query Options.** Flexible query operations over unstructured data including RAG, hybrid search, analytical functions, natural language/conversational search, and custom post-processing functions.  
 
-* Secure and Scalable. Sycamore leverages OpenSearch, an open-source enterprise-scale search and analytics engine for indexing, enabling hybrid (vector + keyword) search, analytical functions, conversational memory, and more. Also, it offers features like fine-grained access control. OpenSearch is used by thousands of enterprise customers for mission-critical workloads. 
+* **Secure and Scalable.** Sycamore leverages OpenSearch, an open-source enterprise-scale search and analytics engine for indexing, enabling hybrid (vector + keyword) search, analytical functions, conversational memory, and more. Also, it offers features like fine-grained access control. OpenSearch is used by thousands of enterprise customers for mission-critical workloads. 
 
-* Develop Quickly. Helpful features like automatic data crawlers (Amazon S3 and HTTP) and Jupyter notebook support to create, iterate, and test custom data preparation code. 
+* **Develop Quickly.** Helpful features like automatic data crawlers (Amazon S3 and HTTP) and Jupyter notebook support to create, iterate, and test custom data preparation code. 
 
-* Plug-and-Play LLMs. Use different LLMs for entity extraction, vector embedding, RAG, and post-processing steps. Currently supporting OpenAI and Amazon Bedrock, and more to come! 
+* **Plug-and-Play LLMs.** Use different LLMs for entity extraction, vector embedding, RAG, and post-processing steps. Currently supporting OpenAI and Amazon Bedrock, and more to come! 
 
 ADD DEMO VIDEO!!!
 
