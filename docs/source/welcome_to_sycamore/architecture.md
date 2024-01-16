@@ -28,4 +28,6 @@ Sycamore uses LLMs to rewrite natural language queries and implement RAG. You ca
 
 * **Retrieval-Augmented Generation (RAG):** Sycamore can execute queries using a RAG pipeline in combination with a specified LLM. It can be used directly with an OpenSearch client (using the RAG Search Pipeline) or through the Demo UI. 
 
-* **Post Retrieval Processing:** Sycamore runs post-processing steps. For instance, it includes a customizable reranker to provide reranking heuristics after hybrid search returns initial results. 
+* **Post Retrieval Processing:** Sycamore runs post-processing steps. For instance, it includes a customizable reranker to provide reranking heuristics after hybrid search returns initial results.
+
+![Untitled](imgs/SycamoreDiagram_Detailed.png)
