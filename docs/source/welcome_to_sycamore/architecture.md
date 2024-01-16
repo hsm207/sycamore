@@ -1,5 +1,5 @@
 # Sycamore Architecture
-Sycamore provides a one-stop shop for search and analytics on complex unstructured data, and has several high-level components: 
+Sycamore provides a one-stop shop for search and analytics on complex unstructured data, and has several high-level components. You can also view an [architecture diagram below.](##Architecture-Diagram) 
 
 ## Data Ingestion and Preparation 
 
@@ -29,5 +29,7 @@ Sycamore uses LLMs to rewrite natural language queries and implement RAG. You ca
 * **Retrieval-Augmented Generation (RAG):** Sycamore can execute queries using a RAG pipeline in combination with a specified LLM. It can be used directly with an OpenSearch client (using the RAG Search Pipeline) or through the Demo UI. 
 
 * **Post Retrieval Processing:** Sycamore runs post-processing steps. For instance, it includes a customizable reranker to provide reranking heuristics after hybrid search returns initial results.
+
+##Architecture Diagram
 
 ![Untitled](imgs/SycamoreDiagram_Detailed.png)
