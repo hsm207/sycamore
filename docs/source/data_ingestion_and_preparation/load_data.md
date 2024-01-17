@@ -1,5 +1,8 @@
 # Loading data into Sycamore
 
+You can load data into Sycamore using crawlers, copying a local file, or using the Sycamore data preparation libraries directly.
+
+
 ## Using a crawler
 You can use a crawler to automatically ingest data from a data source into Sycamore. If invoked to load data again from the same location, it will only load new or changed data. 
 
@@ -21,8 +24,6 @@ To use the HTTP crawler, run:
 
 `docker run -v crawl_data:/app/.data/.scrapy crawler_http [URL]` 
 
- 
-
 ## Load PDFs from local machine  
 
 If you have local PDF or HTML files to load into Sycamore, you can copy them to the directory where the HTTP crawler saves the PDF or HTML files, respectively. Adding files to this directory will trigger the Sycamore-Importer to process them.  
@@ -38,5 +39,5 @@ To copy a local HTML file to this directory, run:
 
 ## Use data preparation libraries to load data
 
-
+You can write data preparation jobs using the Sycamore libraries direclty and load this data into your Sycamore stack. For more information, visit LINK HERE. 
  
