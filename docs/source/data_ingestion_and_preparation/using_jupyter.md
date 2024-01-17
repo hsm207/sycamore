@@ -1,6 +1,6 @@
 # Using Jupyter to create data preparation jobs
 
-It can be useful to use a Jupyter notebook to write and iterate on custom data preparation code. By default, Sycamore includes a Jupyter notebook configured with Sycamore’s data preparation libraries and other dependencies, and you can easily use this to create scripts in a notebook or run data preparation code from the Jupyter shell. You can also install and configure Jupyter with the Sycamore libraries locally. 
+It can be useful to use a [Jupyter notebook](https://jupyter.org/) to write and iterate on custom data preparation code. By default, Sycamore includes a Jupyter notebook configured with Sycamore’s data preparation libraries and other dependencies, and you can easily use this to create scripts in a notebook or run data preparation code from the Jupyter shell. You can also install and configure Jupyter with the Sycamore libraries locally. 
 
 ## Using the Jupyter container 
 
