@@ -2,12 +2,40 @@
 
 You can use an OpenSearch client version 2.12+ to query your Sycamore stack, and you can run direct hybrid searches (vector + keyword) on your data.
 
-Hybrid search is implemented an OpenSearch search processor that enables relevancy score normalization and combination. This allows you to make the best of both keyword and semantic (neural) search, giving higher-quality results. You can use Sycamore's default hybrid search configuration, or you can customize the way your search relevancy is calculated. 
+Hybrid search is implemented an [OpenSearch search processor](https://opensearch.org/docs/latest/search-plugins/hybrid-search/) that enables relevancy score normalization and combination. This allows you to make the best of both keyword and semantic (neural) search, giving higher-quality results. You can use Sycamore's default hybrid search configuration, or you can customize the way your search relevancy is calculated. 
 
 ## Default settings
 
-By default, Sycamore includes a hybrid search processor called 
+By default, Sycamore includes a hybrid search processor named 'hybrid_pipeline' with default settings for weighting across vector and keyword retreival and other parameters. When using hybrid search, you must also create vector embeddings for your question using the same AI model that you used when indexing your data. For more information, visit the [OpenSearch Neural Query documentation](https://opensearch.org/docs/latest/query-dsl/specialized/neural/).
 
+
+Example hybrid search query:
+
+```javascript
+GET <index-name>/_search?search_pipeline=hybrid_pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "text_representation": "Who wrote the book of love?"
+          }
+        },
+        {
+          "neural": {
+            "embedding": {
+              "query_text": "Who wrote the book of love",
+              "model_id": "<embedding model id>",
+              "k": 100
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
 
 ## Customize your hybrid search
 
