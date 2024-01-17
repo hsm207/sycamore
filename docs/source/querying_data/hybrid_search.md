@@ -1,4 +1,4 @@
-# Hybrid and Semantic Search
+# Hybrid Search
 
 You can use an OpenSearch client version 2.12+ to query your Sycamore stack, and you can run direct hybrid searches (vector + keyword) on your data.
 
