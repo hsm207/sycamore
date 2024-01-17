@@ -65,7 +65,7 @@ PUT /_search/pipeline/my_hybrid_search_pipeline
 }
 ```
 
-To use this hybrid processor, execute a hybrid query:
+To use this hybrid processor, specify it in your hybrid query request:
 
 ```javascript
 GET <index-name>/_search?search_pipeline=my_hybrid_search_pipeline
