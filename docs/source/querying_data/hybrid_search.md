@@ -4,9 +4,9 @@ You can use an OpenSearch client version 2.12+ to query your Sycamore stack, and
 
 Hybrid search is implemented an [OpenSearch search processor](https://opensearch.org/docs/latest/search-plugins/hybrid-search/) that enables relevancy score normalization and combination of search results from both semantic and keyword search approaches. This allows you to make the best of both keyword and semantic (neural) search, giving higher-quality results. You can use Sycamore's default hybrid search configuration, or you can customize the way your search relevancy is calculated. 
 
-## Default settings
+## Default pipeline
 
-By default, Sycamore includes a hybrid search processor named 'hybrid_pipeline' with default settings for weighting across vector and keyword retreival and other parameters. When using hybrid search, you must also create vector embeddings for your question using the same AI model that you used when indexing your data. For more information, visit the [OpenSearch Neural Query documentation](https://opensearch.org/docs/latest/query-dsl/specialized/neural/).
+By default, Sycamore includes a hybrid search pipeline named 'hybrid_pipeline' with default settings for weighting across vector and keyword retreival and other parameters. When using hybrid search, you must also create vector embeddings for your question using the same AI model that you used when indexing your data. For more information, visit the [OpenSearch Neural Query documentation](https://opensearch.org/docs/latest/query-dsl/specialized/neural/).
 
 
 Example hybrid search query:
