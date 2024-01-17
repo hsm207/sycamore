@@ -27,8 +27,6 @@ docset = context.read\
 
 A Document is a generic representation of an unstructured document in a format like PDF, HTML. Though different types of document may have different properties, they all contain the following common fields: 
 
- 
-
 * **doc_id:** A unique identifier for the document. Defaults to a uuid. 
 
 * **parent_id:** In Sycamore, certain operations create parent-child relationships between documents. For example, the explode transform promotes elements to be top-level documents, and these documents retain a pointer to the document from which they were created using the parent_id field. For those documents which have no parent, parent_id is None. 
@@ -43,10 +41,9 @@ A Document is a generic representation of an unstructured document in a form
 
 It is often useful to process different parts of a document separately. For example, you might want to process tables differently than text paragraphs, and typically small chunks of text are embedded separately for vector search. In Sycamore, these chunks are called elements. Like documents, elements contain a text or binary representations and collection of properties that can be set by the user or by built-in transforms. 
 
+### Query Execution
+
+In Sycamore, DocSet evaluation is lazy, which means that transforms on DocSet aren’t executed until needed by an operation like show or write. Internally, the transforms are converted to an execution plan in the backend. This lazy execution framework provides opportunities to sanitize and optimize the query execution. For instance, we could convert the above DocSet query into following execution plan. 
+
  
-
-Query Execution: In Sycamore, DocSet evaluation is lazy, which means that transforms on DocSet aren’t executed until needed by an operation like show or write. Internally, the transforms are converted to an execution plan in the backend. This lazy execution framework provides opportunities to sanitize and optimize the query execution. For instance, we could convert the above DocSet query into following execution plan. 
-
- 
-
 [SHOW IMAGE] 
