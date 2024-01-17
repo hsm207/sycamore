@@ -45,5 +45,4 @@ It is often useful to process different parts of a document separately. For exam
 
 In Sycamore, DocSet evaluation is lazy, which means that transforms on DocSet aren’t executed until needed by an operation like show or write. Internally, the transforms are converted to an execution plan in the backend. This lazy execution framework provides opportunities to sanitize and optimize the query execution. For instance, we could convert the above DocSet query into following execution plan. 
 
- 
-[SHOW IMAGE] 
+![Untitled](imgs/query_execution.svg)
