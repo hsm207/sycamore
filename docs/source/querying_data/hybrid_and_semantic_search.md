@@ -1,9 +1,14 @@
+# Hybrid and Semantic Search
 
+You can use an OpenSearch client WHAT VERSION?? to query your Sycamore stack, and you can run hybrid (vector + keyword) or semantic (vector) search on your data.
 
+## Default hybrid search processor
 
-## Hybrid Search
+NEED INSTRUCTIONS HERE
 
-Hybrid Search is a processor that enables relevancy score normalization and combination. This allows you to make the best of both keyword and neural search, giving higher-quality results. Ordinarily this is difficult, because neural scores and keyword scores have entirely different ranges. Hybrid search enables normalization and combination of these scores in numerous varieties, so you can customize the way your search relevancy is calculated. From our testing, we've found that a `min_max` normalization with an `arithmetic_mean` (weighted `[0.111,0.889]` towards the neural score) works well, but every dataset will behave differently. To create a pipeline (called `hybrid_pipeline`) with this configuration:
+## Custom hybrid search processor
+
+Hybrid Search is an OpenSearch search processor that enables relevancy score normalization and combination. This allows you to make the best of both keyword and neural search, giving higher-quality results. Ordinarily this is difficult, because neural scores and keyword scores have entirely different ranges. Hybrid search enables normalization and combination of these scores in numerous varieties, so you can customize the way your search relevancy is calculated. From our testing, we've found that a `min_max` normalization with an `arithmetic_mean` (weighted `[0.111,0.889]` towards the neural score) works well, but every dataset will behave differently. To create a pipeline (called `hybrid_pipeline`) with this configuration:
 
 ```javascript
 PUT /_search/pipeline/hybrid_pipeline
