@@ -1,45 +1,64 @@
 
 
 
-## Hybrid search
+## Hybrid Search
 
-Hybrid Search is implemented as a Search Processor, so in order to use it for the best quality search relevance, we must make a pipeline with both processors
+Hybrid Search is a processor that enables relevancy score normalization and combination. This allows you to make the best of both keyword and neural search, giving higher-quality results. Ordinarily this is difficult, because neural scores and keyword scores have entirely different ranges. Hybrid search enables normalization and combination of these scores in numerous varieties, so you can customize the way your search relevancy is calculated. From our testing, we've found that a `min_max` normalization with an `arithmetic_mean` (weighted `[0.111,0.889]` towards the neural score) works well, but every dataset will behave differently. To create a pipeline (called `hybrid_pipeline`) with this configuration:
 
 ```javascript
-PUT /_search/pipeline/<hybrid_rag_pipeline>
+PUT /_search/pipeline/hybrid_pipeline
 {
-  "description": "RAG + Hybrid Search Pipeline",
-    "phase_results_processors": [
-        {
-            "normalization-processor": {
-                "normalization": {
-                    "technique": "min_max"
-                },
-                "combination": {
-                    "technique": "arithmetic_mean",
-                    "parameters": {
-                        "weights": [.889, .111]
-                    }
-                }
-            }
+  "description": "Hybrid Search Pipeline",
+  "phase_results_processors": [
+    {
+      "normalization-processor": {
+        "normalization": {
+          "technique": "min_max"
+        },
+        "combination": {
+          "technique": "arithmetic_mean",
+          "parameters": {
+            "weights": [0.111, 0.889]
+          }
         }
-    ],
-    "response_processors": [
-        {
-            "retrieval_augmented_generation": {
-                "tag": "openai_pipeline_demo",
-                "description": "Demo pipeline Using OpenAI Connector",
-                "model_id": "<openai_id>",
-                "context_field_list": ["text"]
-            }
-        }
-    ]
+      }
+    }
+  ]
 }
 ```
 
-## Neural search
+The hybrid search processor is called a “phase_results_processor” because it is injected in between the two phases of OpenSearch’s main search process. OpenSearch computes search results in two phases, “query”, and “fetch”. In the “query” phase, OpenSearch computes the top scores for documents and comes up with a list of the top scoring document ids. In the “fetch” phase, OpenSearch gets the source data from those document IDs and returns the list of search results that the user sees. Hybrid search interjects between the query and fetch phase, by collecting the lists of top documents and scores for each query, and normalizing and combining before the fetch phase, which keeps the computation less cumbersome. 
 
-# Neural Search
+To use this hybrid processor, execute a hybrid query:
+
+```javascript
+GET <index-name>/_search?search_pipeline=hybrid_pipeline
+{
+  "query": {
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "text_representation": "Who wrote the book of love?"
+          }
+        },
+        {
+          "neural": {
+            "embedding": {
+              "query_text": "Who wrote the book of love",
+              "model_id": "<embedding model id>",
+              "k": 100
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+
+## Neural search
 
 The Aryn Conversational Search Stack uses OpenSearch's neural search fucntionality for semantic search. Sycamore loads the vector embeddings for your dataset into a vector database in OpenSearch, and then uses vector search techniques to retreive the top results. This is used in combination with keyword search for "hybrid search," which can give better search relevance.
 
