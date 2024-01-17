@@ -1,6 +1,6 @@
 # Hybrid and Semantic Search
 
-You can use an OpenSearch client WHAT VERSION?? to query your Sycamore stack, and you can run hybrid (vector + keyword) or semantic (vector) search on your data.
+You can use an OpenSearch client version 2.12+ to query your Sycamore stack, and you can run hybrid (vector + keyword) or semantic (vector) search on your data.
 
 ## Default hybrid search processor
 
