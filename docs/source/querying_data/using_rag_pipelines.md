@@ -19,16 +19,26 @@ If a conversation ID wasn't supplied (see [here](../conversational_memory/using_
 
 Sycamore has a default RAG pipeline named `hybrid_rag_pipeline`, and it uses OpenAI GPT-3.5-TURBO as the LLM by default. To use the pipeline, add this to your OpenSearch query: 
 
-```javascript
 GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
 {
   "query": {
-    "neural": {
-      "embedding": {
-        "query_text": "Who wrote the book of love",
-        "model_id": "<embedding model id>",
-        "k": 100
-      }
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "text_representation": "Who wrote the book of love"
+          }
+        },
+        {
+          "neural": {
+            "embedding": {
+              "query_text": "Who wrote the book of love",
+              "model_id": "<embedding model id>",
+              "k": 100
+            }
+          }
+        }
+      ]
     }
   },
   "ext": {
@@ -37,7 +47,6 @@ GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
     }
   }
 }
-```
 
 The resulting generative answer from the RAG pipeline is in `response.ext`.
 
