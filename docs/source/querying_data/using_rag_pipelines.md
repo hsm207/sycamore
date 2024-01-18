@@ -65,12 +65,10 @@ GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
 ```
 
 ## Customize the RAG pipeline
-To create a RAG pipeline, you must first have a remote LLM-wrapper deployed in ml-commons. Then, for example, to create a RAG pipeline called `rag_pipeline` using OpenAI GPT-3.5-Turbo,
-
-For more information, visit the [OpenSearch documentation](https://opensearch.org/docs/latest/search-plugins/conversational-search/#rag-pipeline).
+To create a RAG pipeline, you must first have a [remote LLM-wrapper deployed with ml-commons](https://opensearch.org/docs/latest/ml-commons-plugin/remote-models/index/). Then, for example, to create a RAG pipeline called `rag_pipeline` using OpenAI GPT-4:
 
 ```javascript
-PUT /_search/pipeline/rag_pipeline
+PUT /_search/pipeline/my_rag_pipeline
 {
   "description": "Retrieval Augmented Generation Pipeline",
   "response_processors": [
@@ -81,17 +79,17 @@ PUT /_search/pipeline/rag_pipeline
         "context_field_list": [
           "text_representation"
         ],
-        "llm_model": "gpt-3.5-turbo"
+        "llm_model": "gpt-4"
       }
     }
   ]
 }
 ```
 
-To use this processor, simply add this to your OpenSearch query 
+To use this processor, simply add this to your OpenSearch query:
 
 ```javascript
-GET <index_name>/_search
+GET <index_name>/_search?search_pipeline=my_rag_pipeline
 {
   "query": {
     "neural": {
@@ -104,10 +102,11 @@ GET <index_name>/_search
   },
   "ext": {
     "generative_qa_parameters": {
-      "llm_question": "Who wrote the book of love?"
+      "llm_question": "Who wrote the book of love?",
+      "llm_model": "gpt-4"
     }
   }
 }
 ```
 
-The resulting LLM answer is in `response.ext` 
+For more information, visit the [OpenSearch documentation](https://opensearch.org/docs/latest/search-plugins/conversational-search/#rag-pipeline).
