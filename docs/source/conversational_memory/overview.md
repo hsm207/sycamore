@@ -8,7 +8,7 @@ You can also use Sycamore's conversion memory feature set as a scalable conversa
 
 ## Architecture
 
-Conversation Memory is in the ml-commons plugin in OpenSearch. It is a CRUD API built for storing conversations and adding new interactions. It uses a pair of OpenSearch system indices to store this data. We represent conversations as a list of interactions, where each interaction consists of an “input and a “response.” We also add two other fields to interactions and conversations to enable adding the prompt template used in the interaction and additional info specified by the application.
+Sycamore's conversation memory uses the ml-commons plugin in OpenSearch. It is a CRUD API built for storing conversations and adding new interactions. It uses a pair of OpenSearch system indices to store this data. We represent conversations as a list of interactions, where each interaction consists of an “input and a “response.” We also add two other fields to interactions and conversations to enable adding the prompt template used in the interaction and additional info specified by the application.
 
 
 ![Untitled](imgs/resource-diagram.png)
@@ -35,4 +35,4 @@ structure Interaction {
 }
 ```
 
-For details on the APIs please refer to the [API Spec](api-spec.md) or the official OpenSearch [documentation](https://opensearch.org/docs/2.10/ml-commons-plugin/conversational-search/) on conversational search.
+For details on the APIs please refer to the [API Spec](../APIs/conversation_memory/functions.md) or the official OpenSearch [documentation](https://opensearch.org/docs/2.10/ml-commons-plugin/conversational-search/) on conversational search.
