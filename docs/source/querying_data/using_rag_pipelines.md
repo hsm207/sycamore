@@ -1,8 +1,7 @@
 # Using Retrieval-Augmented Generation (RAG) pipelines
 
 ## Overview
-[Retrieval-augmented generation (RAG)](https://arxiv.org/abs/2005.11401) is a popular method to generate natural language answers to questions using LLMs and indexed data. It retreives relevant data to a query, and then sends it along with a prompt to a LLM to sythensize an answer. Sycamore implements RAG using an [OpenSearch Search Pipeline](https://opensearch.org/docs/latest/search-plugins/search-pipelines/index/
-) to orchestrate interactions with LLMs. 
+[Retrieval-augmented generation (RAG)](https://arxiv.org/abs/2005.11401) is a popular method to generate natural language answers to questions using LLMs and indexed data. It retreives relevant data to a query, and then sends it along with a prompt to a LLM to sythensize an answer. Sycamore implements RAG using an [OpenSearch Search Pipeline](https://opensearch.org/docs/latest/search-plugins/conversational-search/#rag-pipeline) to orchestrate interactions with LLMs. 
 
 ![Untitled](imgs/pipeline-architecture.png)
 
@@ -18,10 +17,10 @@ If a conversation ID wasn't supplied (see [here](../conversational_memory/using_
 
 ## Using the RAG pipeline
 
-Sycamore has a default RAG pipeline named 'hybrid_rag_pipeline', and it uses OpenAI GPT-3.5-TURBO as the LLM by default. To use the pipeline, add this to your OpenSearch query: 
+Sycamore has a default RAG pipeline named `hybrid_rag_pipeline`, and it uses OpenAI GPT-3.5-TURBO as the LLM by default. To use the pipeline, add this to your OpenSearch query: 
 
 ```javascript
-GET <index_name>/_search?search_pipeline=rag_pipeline
+GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
 {
   "query": {
     "neural": {
@@ -45,7 +44,7 @@ The resulting generative answer from the RAG pipeline is in `response.ext`.
 You can choose a different OpenAI LLM to use by adding the parameter 'llm-model'. An example changing this to GPT-4 is:
 
 ```javascript
-GET <index_name>/_search?search_pipeline=rag_pipeline
+GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
 {
   "query": {
     "neural": {
@@ -65,11 +64,10 @@ GET <index_name>/_search?search_pipeline=rag_pipeline
 }
 ```
 
-
-
-
 ## Customize the RAG pipeline
 To create a RAG pipeline, you must first have a remote LLM-wrapper deployed in ml-commons. Then, for example, to create a RAG pipeline called `rag_pipeline` using OpenAI GPT-3.5-Turbo,
+
+For more information, visit the [OpenSearch documentation](https://opensearch.org/docs/latest/search-plugins/conversational-search/#rag-pipeline).
 
 ```javascript
 PUT /_search/pipeline/rag_pipeline
