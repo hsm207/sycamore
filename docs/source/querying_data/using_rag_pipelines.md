@@ -52,7 +52,7 @@ GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
 
 The resulting generative answer from the RAG pipeline is in `response.ext`.
 
-You can choose a different OpenAI LLM to use by adding the parameter `llm-model`. An example changing this to GPT-4 is:
+You can choose a different OpenAI LLM to use by adding the parameter `llm-model` to override the default setting. An example changing this to GPT-4 is:
 
 
 ```javascript
