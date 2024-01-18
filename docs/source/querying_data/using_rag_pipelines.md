@@ -17,7 +17,7 @@ If a conversation ID wasn't supplied (see [here](../conversational_memory/using_
 
 ## Using the RAG pipeline
 
-Sycamore has a default RAG pipeline named `hybrid_rag_pipeline`, and it uses OpenAI GPT-3.5-TURBO as the LLM by default. To use the pipeline, add this to your OpenSearch hybrid query: 
+Sycamore has a default RAG pipeline named `hybrid_rag_pipeline`, and it uses OpenAI GPT-3.5-TURBO as the LLM by default. To use the pipeline, specify it in your request and add the 'generative_qa_parameters':
 
 ```javascript
 GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
@@ -52,7 +52,7 @@ GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
 
 The resulting generative answer from the RAG pipeline is in `response.ext`.
 
-You can choose a different OpenAI LLM to use by adding the parameter 'llm-model'. An example changing this to GPT-4 is:
+You can choose a different OpenAI LLM to use by adding the parameter `llm-model`. An example changing this to GPT-4 is:
 
 
 ```javascript
