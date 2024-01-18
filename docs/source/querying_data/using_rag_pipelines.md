@@ -17,8 +17,9 @@ If a conversation ID wasn't supplied (see [here](../conversational_memory/using_
 
 ## Using the RAG pipeline
 
-Sycamore has a default RAG pipeline named `hybrid_rag_pipeline`, and it uses OpenAI GPT-3.5-TURBO as the LLM by default. To use the pipeline, add this to your OpenSearch query: 
+Sycamore has a default RAG pipeline named `hybrid_rag_pipeline`, and it uses OpenAI GPT-3.5-TURBO as the LLM by default. To use the pipeline, add this to your OpenSearch hybrid query: 
 
+```javascript
 GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
 {
   "query": {
@@ -43,25 +44,38 @@ GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
   },
   "ext": {
     "generative_qa_parameters": {
-      "llm_question": "Who wrote the book of love?"
+    "llm_question": "Who wrote the book of love?"
     }
   }
 }
+```
 
 The resulting generative answer from the RAG pipeline is in `response.ext`.
 
 You can choose a different OpenAI LLM to use by adding the parameter 'llm-model'. An example changing this to GPT-4 is:
 
+
 ```javascript
 GET <index_name>/_search?search_pipeline=hybrid_rag_pipeline
 {
   "query": {
-    "neural": {
-      "embedding": {
-        "query_text": "Who wrote the book of love",
-        "model_id": "<embedding model id>",
-        "k": 100
-      }
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "text_representation": "Who wrote the book of love"
+          }
+        },
+        {
+          "neural": {
+            "embedding": {
+              "query_text": "Who wrote the book of love",
+              "model_id": "<embedding model id>",
+              "k": 100
+            }
+          }
+        }
+      ]
     }
   },
   "ext": {
@@ -101,18 +115,28 @@ To use this processor, simply add this to your OpenSearch query:
 GET <index_name>/_search?search_pipeline=my_rag_pipeline
 {
   "query": {
-    "neural": {
-      "embedding": {
-        "query_text": "Who wrote the book of love",
-        "model_id": "<embedding model id>",
-        "k": 100
-      }
+    "hybrid": {
+      "queries": [
+        {
+          "match": {
+            "text_representation": "Who wrote the book of love"
+          }
+        },
+        {
+          "neural": {
+            "embedding": {
+              "query_text": "Who wrote the book of love",
+              "model_id": "<embedding model id>",
+              "k": 100
+            }
+          }
+        }
+      ]
     }
   },
   "ext": {
     "generative_qa_parameters": {
-      "llm_question": "Who wrote the book of love?",
-      "llm_model": "gpt-4"
+      "llm_question": "Who wrote the book of love?"
     }
   }
 }
