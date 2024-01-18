@@ -1,14 +1,10 @@
-# Get started
+# Conversational memory concepts
 
-## Why use Conversation Memory?
+## Overview
 
-Large language models (LLMs) are popular for their ability to respond with natural language. However, because they are stateless, they do not "remember" previous user interactions. 
+When using Sycamore for conversational search applications, you need to store the state of the conversation to use with the next user interaction. Scyamore uses the conversation memory feature set in OpenSearch (contributed by Aryn) for this purpose, enabling you to easily create conversations and add interactions to those conversations. It uses an OpenSearch index to store this information, and you can set up access control to limit which users can see diffrent conversations.
 
-For instance, if you tell a language model “My name is Henry” in one inference, and then ask in another inference, “What’s my name?”, it cannot know, because all it knows about is the question you just asked. The LLM might guess by picking the most common name “Maria” or maybe it will simply say it doesn’t know. To build a chat application, the LLM clearly needs a way to reference the history of the conversation. 
-
-Aryn added Conversation Memory to OpenSearch v2.10, and it makes it easy for LLMs access conversation history and add interactions to a conversation. For enterprise-grade use cases that require scalability, persistent conversations that a user can refer back to, or multi-agent LLM applications, you need a single, persistent source of conversation history.
-
-Conversation memory also makes it easy to debug and tune your LLM applications by saving the prompt and response from the LLM. When tuning and debugging an LLM-based app, this is critical information - as the exact wording of a prompt can grealty effect the response. Most generative AI applications will involve some aspect of prompt-engineering, so this component is a critical part of the generative AI stack.
+You can also use Sycamore's conversion memory feature set as a scalable conversation storage for generative AI agenets and other applications. It also makes it easy to debug and tune your LLM applications by saving the prompt and response from the LLM. When prompt engineering, tuning, and debugging an LLM-based app, this is critical information - as the exact wording of a prompt can grealty effect the response.
 
 ## Conversation Memory Architecture
 
