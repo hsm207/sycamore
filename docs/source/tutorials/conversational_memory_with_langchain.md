@@ -1,10 +1,10 @@
-# Using the Search Stack with Langchain
+# Using conversation memory with Langchain
 
-Langchain is a popular framework for building applications with large language models, and you can use Aryn's Conversational Search Stack to power apps created with Langchain. In this example, we will show how to use the OpenSearch's Conversation Memory feature set, which is part of stack, to store chat history for a LangChain app. This tutorial will walk through creating an implementation of Chat History that integrates with LangChain primitives, and calls out to OpenSearch Conversation Memory APIs.
+[LangChain](https://www.langchain.com/) is a popular framework for building applications with large language models, and you can use Sycamore to power apps created with Langchain. In this example, we will show how to use Sycamore's conversation memory feature set to store chat history for a LangChain app. This tutorial will walk through creating an implementation of chat history that integrates with LangChain primitives, and calls out to Sycamore's conversation memory APIs.
 
-## OpenSearch Conversation Memory Client
+## Prepare OpenSearch client for Sycamore
 
-Since the Conversation Memory API is quite new, it isn't yet available in the various language clients that integrate with OpenSearch. Luckily, it’s super easy to just create it. First, for dependencies: this requires the `opensearchpy` package, OpenSearch’s python client 
+Since the conversation memory API is a new feature in OpenSearch, it isn't yet available in the various language clients. Luckily, it’s super easy to just create it. First, for dependencies: this requires the `opensearchpy` package, OpenSearch’s python client:
 
 ```bash
 pip install opensearch-py
@@ -18,7 +18,7 @@ from opensearchpy import OpenSearch
 import json
 ```
 
-Now, we’ll create our `ConversationMemoryOpensearchClient` as a subclass of `NamespaceClient`, which is an abstract client class that constructs off of a basic `OpenSearch` client, and provides the functionality to hit any OpenSearch endpoint exposed by a cluster. We will define a method for each of the Conversation Memory APIs:
+Now, we’ll create our `ConversationMemoryOpensearchClient` as a subclass of `NamespaceClient`, which is an abstract client class that constructs off of a basic `OpenSearch` client, and provides the functionality to hit any OpenSearch endpoint exposed by a cluster. We will define a method for each of the conversation memory APIs:
 
 ```python
 class ConversationMemoryOpensearchClient(NamespacedClient):
@@ -93,7 +93,7 @@ opensearch_client = OpenSearch(
 conversation_client = ConversationMemoryOpensearchClient(opensearch_client)
 ```
 
-With this implementation, we hit the endpoints of the Conversation Memory API with the appropriate arguments, using a method provided by `NamespaceClient` that does just that. The return values are all parsed into python dicts and lists from JSON, so all that's required is minimal logic to determine what optional parameters to send.
+With this implementation, we hit the endpoints of the conversation memory API with the appropriate arguments, using a method provided by `NamespaceClient` that does just that. The return values are all parsed into python dicts and lists from JSON, so all that's required is minimal logic to determine what optional parameters to send.
 
 ## LangChain ChatHistory
 
@@ -203,18 +203,18 @@ Let’s go over this method by method.
 
 2. `_validate_conversation_id`: The job of this method is to determine whether the currently held conversation ID exists. We do this by retrieving the list of conversations, and checking to see if the currently held conversation ID is in that list. Since the GetConversations API is paginated, we iteratively step through it in case the conversation we’re looking for isn’t on the first page. If we run out of pages, the conversation doesn’t exist.
 
-3. `messages`: This method retrieves the list of messages in the conversation and arranges them for LangChain. There are a couple of oddities about this. First, the GetInteractions API is paginated, but LangChain expects to receive all of the messages at once, so we again have to iterate through the pages. Second, the GetInteractions API retrieves interactions sorted from most recent to least recent; so we have to build the list of messages backwards. Third, an interaction consists of two messages, so we have to decompose that and add two messages for every interaction. Lastly, if there are any pending messages, they will not be returned by the Conversation API, since they are yet to enter the OpenSearch indices, so we need to tack those on at the end too.
+3. `messages`: This method retrieves the list of messages in the conversation and arranges them for LangChain. There are a couple of oddities about this. First, the GetInteractions API is paginated, but LangChain expects to receive all of the messages at once, so we again have to iterate through the pages. Second, the GetInteractions API retrieves interactions sorted from most recent to least recent; so we have to build the list of messages backwards. Third, an interaction consists of two messages, so we have to decompose that and add two messages for every interaction. Lastly, if there are any pending messages, they will not be returned by the conversation memory API, since they are yet to enter the Sycamore indices, so we need to tack those on at the end too.
 
-4. `add_message`: This method adds a message to Conversational Memory. Because of the mismatch between LangChain messages and Conversational Memory interactions described above, there is some added complexity:
+4. `add_message`: This method adds a message to conversation memory. Because of the mismatch between LangChain messages and conversation memory interactions described above, there is some added complexity:
     1. If nothing is pending, the new message doesn’t have a pair, so we put it in the 'pending' container to wait for a pair.
     2. If the new message is the same kind of message as the pending messages (e.g. 'HumanMessages'), then we still don’t have a pair of Human/AI messages, so we add the new message onto the pending list.
-    3. If the new message is a different kind of message from the pending messages, then we *do* have a pair. If there are *unpaired* pending messages still in the list, we assume that the pair comes from the most recent message (this preserves the message order), and iteratively enter the unpaired messages into Conversational Memory as interactions with null responses or inputs. Finally, we add the paired message to Conversational Memory, and then empty out the pending list.
+    3. If the new message is a different kind of message from the pending messages, then we *do* have a pair. If there are *unpaired* pending messages still in the list, we assume that the pair comes from the most recent message (this preserves the message order), and iteratively enter the unpaired messages into conversation memory as interactions with null responses or inputs. Finally, we add the paired message to conversation memory, and then empty out the pending list.
 
 5. `clear`: This method resets everything. It deletes the conversation from the memory, un-set the current conversation id, and empties out the pending list.
 
-## LLM Chain with Memory
+## LLMChain with Memory
 
-This is an example on how to create a `LLMChain` that uses the OpenSearch Conversation Memory API as a remote conversation memory store.
+This is an example on how to create a `LLMChain` that uses the Sycamore conversation memory API as a remote conversation memory store.
 
 ```python
 from opensearchpy import OpenSearch
@@ -258,4 +258,4 @@ llm_chain = LLMChain(
 )
 ```
 
-And now, this LLMChain will write its interactions to OpenSearch Conversation Memory.
+And now, this LLMChain will write its interactions to Sycamore's conversation memory.
