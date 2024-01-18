@@ -195,4 +195,4 @@ const prompt = generate_question_rewriting_prompt("when was it created?", conver
 
 ## Conclusion
 
-This tutorial showed how you can use Sycamore’s conversational APIs to easily implement the core components of a client side conversational search application. For more details about the conversational APIs leveraged by Sycamore, see the [OpenSearch documentation]([https://opensearch.org/docs/latest/ml-commons-plugin/conversational-search/](https://opensearch.org/docs/latest/ml-commons-plugin/conversational-search/).
+This tutorial showed how you can use Sycamore’s conversational APIs to easily implement the core components of a client side conversational search application. For more details about the conversational APIs leveraged by Sycamore, see the [OpenSearch documentation](https://opensearch.org/docs/latest/ml-commons-plugin/conversational-search/](https://opensearch.org/docs/latest/ml-commons-plugin/conversational-search/).
