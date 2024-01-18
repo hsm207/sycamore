@@ -1,6 +1,6 @@
-# Read from s3 and write to OpenSearch
+# Using Sycamore's data prep libraries locally
 
-This tutorial provides a walkthrough of how to use Sycamore to prepare, enhance, and embed a PDF dataset from S3 and load it into a local OpenSearch cluster. We encourage to go over Sycamore's [Key Concepts](../key_concepts/concepts.md) before you work through this tutorial. We will be using unstructured pdfs from the [Sort Benchmark](http://sortbenchmark.org/) website. This data is publicly available in S3 here : ***s3://aryn-public/sort-benchmakr/pdf/***.
+This tutorial provides a walkthrough of how to use Sycamore's data preparation libraries locally to prepare, enhance, and embed a PDF dataset from S3 and load it into a local Sycamore stack. We encourage to go over [Sycamore's architecture](../welcome_to_sycamore/architecture.md) before you work through this tutorial. We will be using unstructured PDFs from the [Sort Benchmark](http://sortbenchmark.org/) website. This data is publicly available in S3 here : s3://aryn-public/sort-benchmark/pdf/
 
 ## Steps
 
