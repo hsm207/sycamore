@@ -1,24 +1,23 @@
-# Integrating a chat UI with Aryn
+# Integrating a chat UI with Sycamore
 
-The UI is a key component in many conversational search applications. A good UI enables users to search for data and see natural langauge answers and relevant search results in an easy to use interface. Additionally, UIs can show the source information for natural language answers. This tutorial will provide an overview of how you can create a simple web application that uses Aryn Conversational Search Stack's APIs for conversational search. The application will be built using React, TypeScript, and OpenAI.
+The UI is a key component in many conversational search applications. A good UI enables users to search for data and see natural langauge answers and relevant search results in an easy to use interface. Additionally, UIs can show the source information for natural language answers. This tutorial will provide an overview of how you can create a simple web application that uses Sycamore's APIs for conversational search. The application will be built using React, TypeScript, and OpenAI.
 
 ## Prerequisites
 
-This tutorial requires an already configured Aryn conversational search stack. You can follow the steps in the [Aryn E2E tutorial](https://docs.aryn.ai/tutorials/aryn-e2e-in-depth-tutorial.html) to set it up. The specific components and steps are:
+This tutorial requires an already configured Sycamore stack. You can follow the steps in the [get started guide](../welcome_to_sycamore/get_started.md) to set it up. The specific components and steps are:
 
-1. OpenSearch 2.10+ cluster with the RAG Search Pipeline enabled
-2. Hybrid Search Pipeline configured to use an OpenAI connector
-3. Your data ingested into the OpenSearch cluster using Sycamore
+1. Running Sycamore stack
+2. Ingest the Sort Benchmark data into your stack
 
 ## Building the components
 
 ### Chat sessions and conversation memory
 
-One of the benefits of building apps with Aryn’s conversation APIs is how simple it is to manage client sessions and conversations. The API provides CRUD operations on a conversation object, which allows you to remotely store conversation state and history while not having to worry about client side memory.
+One of the benefits of building apps with Sycamore's APIs is how simple it is to manage client sessions and conversations. The API provides CRUD operations on a conversation object, which allows you to remotely store conversation state and history while not having to worry about client side memory.
 
-Each user session can be modeled as a new `conversation` in OpenSearch. Additionally, the user can pick an existing conversation and continue from where it was left off - retaining all of the context that was used so far. A conversation’s identifier is used each time the user asks a question, so that interaction is automatically added to that conversation's history.
+Each user session can be modeled as a new `conversation` in Sycamore. Additionally, the user can pick an existing conversation and continue from where it was left off - retaining all of the context that was used so far. A conversation’s identifier is used each time the user asks a question, so that interaction is automatically added to that conversation's history.
 
-You access conversation memory through OpenSearch’s REST API, and it's easy to perform conversation level operations. Here is an example about how you can create a conversation in TypeScript
+You access conversation memory through Sycamore's REST API, and it's easy to perform conversation level operations. Here is an example about how you can create a conversation in TypeScript
 
 ```typescript
 const body = {
@@ -47,7 +46,7 @@ try {
 }
 ```
 
-Similarly, you can list existing conversations with a GET request
+Similarly, you can list existing conversations with a GET request:
 
 ```typescript
 const url = protocol + "://" + host + ":" + port + "/_plugins/_ml/memory/conversation"
@@ -75,21 +74,14 @@ try {
 
 ### Queries and interactions
 
-Now that we have initialized a conversation, we can move on to processing user questions and returning answers. Our application will do this through invoking the OpenSearch RAG Search Pipeline, which follows the process defined in a retrieval-augmented generation (RAG) pipeline. It follows these steps:
+Now that we have initialized a conversation, we can move on to processing user questions and returning answers. Our application will do this through invoking the [RAG Search Pipeline](../querying_data/using_rag_pipelines.md).
 
-1. Retrieve previous interactions as conversational context
-2. Retrieve relevant data in OpenSearch using hybrid search and generate search context
-3. Combine the conversational context, search context, user question, and optional prompt template to create an LLM prompt
-4. Make a request to LLM with the LLM prompt and get a generative response (the answer to the question)
-5. Store the query, LLM prompt, and LLM response as an interaction in the conversation
-6. Append the LLM response to the search results
-
-To perform a conversational search request, see the following example
+To perform a conversational search request with RAG, see the following example
 
 ```typescript
 const SOURCES = ["type", "_id", "doc_id", "properties", "title", "text_representation"]
 const MODEL_ID = "<your neural search model>"
-const SEARCH_PIPELINE = "rag_hybrid_pipeline"
+const SEARCH_PIPELINE = "hybrid_rag_pipeline"
 const LLM_MODEL = "gpt4"
 
 const userQuestion = "Who created them?"
@@ -152,7 +144,9 @@ try {
 }
 ```
 
-**Document highlighting:** Certain documents, like PDFs, will contain additional metadata about what section of the documents were used to generate a response. 
+### Document highlighting
+
+Certain documents, like PDFs, will contain additional metadata about what section of the documents were used to generate a response. 
 
 For a PDF search result, the document contains a `properties` attribute, that will optionally contains `boxes`. Each box represents a page number, and the 4 coordinates of a bounding box within that page that represent the text, image, or table that was used as data. You can use a library like `react-pdf` to visualize this client side. Your component might look like this
 
@@ -201,4 +195,4 @@ const prompt = generate_question_rewriting_prompt("when was it created?", conver
 
 ## Conclusion
 
-This tutorial showed how you can use OpenSearch’s conversational APIs contributed by Aryn to easily implement the core components of a client side conversational search application. For more details about the conversational APIs, see the official OpenSearch documentation at [https://opensearch.org/docs/latest/ml-commons-plugin/conversational-search/](https://opensearch.org/docs/latest/ml-commons-plugin/conversational-search/)
+This tutorial showed how you can use Sycamore’s conversational APIs to easily implement the core components of a client side conversational search application. For more details about the conversational APIs leveraged by Sycamore, see the official OpenSearch documentation at [https://opensearch.org/docs/latest/ml-commons-plugin/conversational-search/](https://opensearch.org/docs/latest/ml-commons-plugin/conversational-search/).
