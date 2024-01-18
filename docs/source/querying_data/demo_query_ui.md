@@ -4,4 +4,6 @@ Sycamore includes a simple UI to submit queries and display retreival-augmented 
 
 You can create a new conversation by entering the name in the text box in the "Conversations" panel and hit enter. Then, you can submit questions in the middle panel.
 
-![Untitled](imgs/xlarge_DemoUI_FollowUpQuestion)
+Screenshot answering questions on financial data:
+
+![Untitled](imgs/xlarge_DemoUI_FollowUpQuestion.png)
