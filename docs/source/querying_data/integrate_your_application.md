@@ -70,7 +70,7 @@ try {
 }
 ```
 
-**********Note:********** If you have disabled OpenSearch security plugins for testing, no access control policies will be applied. This means all conversations are visible to every client accessing the cluster. In a production setup, you will want to use OpenSearch access control to restrict the conversations a user can see (see: [https://opensearch.org/docs/latest/security/access-control/index/](https://opensearch.org/docs/latest/security/access-control/index/))
+**********Note:********** By default, all conversations are visible to every client accessing the cluster. In a production setup, you will want to use access control to restrict the conversations a user can see (see: [https://opensearch.org/docs/latest/security/access-control/index/](https://opensearch.org/docs/latest/security/access-control/index/))
 
 ### Queries and interactions
 
