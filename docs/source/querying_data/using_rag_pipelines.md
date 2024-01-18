@@ -1,19 +1,10 @@
 # Using Retrieval-Augmented Generation (RAG) pipelines
 
+## Overview
 [Retrieval-augmented generation (RAG)](https://arxiv.org/abs/2005.11401) is a popular method to generate natural language answers to questions using LLMs and indexed data. It retreives relevant data to a query, and then sends it along with a prompt to a LLM to sythensize an answer. Sycamore implements RAG using an [OpenSearch Search Pipeline](https://opensearch.org/docs/latest/search-plugins/search-pipelines/index/
-)
-
-First, the stack uses a OpenSearch Search Pipeline to orchestrate interactions with LLMs using retrieval-augmented generation (RAG) pipelines. 
-
-https://arxiv.org/abs/2005.11401
-
-https://opensearch.org/docs/latest/search-plugins/search-pipelines/index/
-
-Aryn added the Retrieval Augmented Generation Search Processor to OpenSearch v2.10 for conversational search. This is a response processor, meaning that it executes after the OpenSearch search process. 
-
+) to orchestrate interactions with LLMs. 
 
 ![Untitled](imgs/pipeline-architecture.png)
-
 
 The diagram above showes the flow of the RAG Search Processor.
 
@@ -24,6 +15,8 @@ The diagram above showes the flow of the RAG Search Processor.
 5. The generative response and list of hybrid search results are returned to the application
 
 If a conversation ID wasn't supplied (see [here](../conversational-memory/using-with-conversational-search.md)), then the processor will not retrieve the conversational context or add an interactoin to conversational memory.
+
+## Using the RAG pipeline
 
 To create a RAG pipeline, you must first have a remote LLM-wrapper deployed in ml-commons. Then, for example, to create a RAG pipeline called `rag_pipeline` using OpenAI GPT-3.5-Turbo,
 
