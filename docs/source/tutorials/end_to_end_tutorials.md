@@ -4,13 +4,9 @@ This tutorial provides a walkthrough of how to use Sycamore's data preparation l
 
 ## Steps
 
-1. Install Sycamore using pip
+1. Install Sycamore using pip using [these instructions](../data_ingestion_and_preparation/installing_sycamore_libraries_locally.md)
 
-```bash
-pip install sycamore-ai
-```
-
-2. Create a python script and import Sycamore. In the following code snippet, we are initializing sycamore and creating a DocSet by reading all the files from a local path.
+2. Create a Python script and import Sycamore. In the following code snippet, we are initializing Sycamore and creating a DocSet by reading all the files from a local path.
 
 ```python
 import sycamore
@@ -29,7 +25,7 @@ docset = context.read.binary(paths, parallelism=1, binary_format="pdf")
 At any point if you want to inspect the docset, you can use docset.show() method
 ```
 
-3. Next, we want to partition all the pdfs and generate elements so that we can extract relevant entities later on. We will use the partition transform to achieve this.
+3. Next, we want to partition all the PDFs and generate elements so that we can extract relevant entities later on. We will use the partition transform to achieve this.
 
 ```python
 from sycamore.transforms.partition import UnstructuredPdfPartitioner
@@ -39,7 +35,7 @@ from sycamore.transforms.partition import UnstructuredPdfPartitioner
 docset = docset.partition(partitioner=UnstructuredPdfPartitioner())
 ```
 
-4. Now, since we know that titles and authors are important entities in our dataset, let's extract them using OpenAI with the `extract_entity` transform. In this case, we are going to use *few shot entity extraction*, where we provide some examples to the model of what to extract:
+4. Now, since we know that titles and authors are important entities in our dataset, let's extract them using OpenAI with the `extract_entity` transform. In this case, we are going to use few shot entity extraction, where we provide some examples to the model of what to extract:
 
 ```python
 from sycamore.transforms.extract_entity import OpenAIEntityExtractor
@@ -120,7 +116,7 @@ docset = docset.explode()
 .embed(embedder=SentenceTransformerEmbedder(batch_size=100, model_name="sentence-transformers/all-MiniLM-L6-v2")
 ```
 
-6. Lastly, we want to write these documents into OpenSearch to query. Make sure that you have OpenSearch running locally.
+6. Lastly, we want to write these documents into the local Sycamore stack. Make sure that you have it [running locally](../welcome_to_sycamore/get_started.md).
 
 ```python
 openSearch_client_args = {
